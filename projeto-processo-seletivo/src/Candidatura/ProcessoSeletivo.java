@@ -4,9 +4,14 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ProcessoSeletivo {
     public static void main(String[] args) throws Exception {
         System.out.println("Processo Seletivo");
+        String[] candidatos = {"FELIPE", "MARCIA", "JULIA", "PAULO", "AUGUSTO", "MONICA"};
 
-        selecaoCandidatos();
+        for(String candidato : candidatos){
+            entrandoEmContato(candidato);
+        }
+
     }
+
 
     static void selecaoCandidatos(){
         String[] candidatos = {"FELIPE", "MARCIA", "JULIA", "PAULO", "AUGUSTO", "MONICA"};
@@ -40,4 +45,28 @@ public class ProcessoSeletivo {
             System.out.println("Aguardanod o resultado dos demais candidatos");
         }
     }
+
+    static boolean atender(){
+        //gera numeros randomicos de 1 a 3, caso for igual a 1 retorna true
+        return new Random().nextInt(3)==1;
+    }
+    static void entrandoEmContato(String candidato){
+        int tentativasRealizadas=1;
+        boolean continuarTentando=true;
+        boolean atendeu=false;
+        do{
+            atendeu = atender();
+            //caso  "atender" a variavel continuarTentando recebe o valor oposto de atendeu, que no caso é false
+            continuarTentando = !atendeu;
+
+            if(continuarTentando)tentativasRealizadas++;
+            else System.out.println("Contato realizado com sucesso");
+
+        }while(continuarTentando && tentativasRealizadas < 3);
+
+        if(atendeu) System.out.println("Conseguimos contato com "+candidato+" na "+tentativasRealizadas+ " tentativa");
+        else System.out.println("Não conseguimos contato com "+candidato+" na "+tentativasRealizadas+ " tentativa realizada");
+
+
+    }   
 }
